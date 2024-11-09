@@ -9,7 +9,7 @@ import StockChart from "./components/Chart";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       {/* The home section */}
       <section>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -125,12 +125,15 @@ export default function Home() {
       </section>
 
       {/* chart section */}
-      <section className="w-full max-w-lg mt-20">
-      <h1 className="text-3xl font-bold">Stock Candlestick Chart</h1>
-        <div style={{ width: "100%", height: "400px" }}>
-          <StockChart ticker="AAPL" />
+      <section className="w-full flex justify-center mt-20">
+        <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
+          <h1 className="md:text-3xl text-lg font-bold text-center mb-4">Stock Candlestick Chart</h1>
+          <div className="w-[90%] h-[90%]">
+            <StockChart ticker="AAPL" />
+          </div>
         </div>
       </section>
+
 
       {/* test section */}
       <section className="h-screen flex justify-center">
