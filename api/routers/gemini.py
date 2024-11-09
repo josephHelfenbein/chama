@@ -18,9 +18,8 @@ router = APIRouter()
 
 @router.post("/")
 def gemini(articles: str = Body(...)):
-    articlesList = [Article(**article) for article in json.loads(articles)]
     genai.configure(api_key=os.environ["GEMINI_API"])
     model = genai.GenerativeModel(model_name="gemini-1.5-flash",
-                                  system_instruction="Pick your favorite article object out of the array, and return it back in the exact same JSON format without any additional words, explanations, or introductions.")
+                                   system_instruction="In the prompt is a JSON of news objects, and a ticker for a crypto coin. Return JSON of a short summary of 4-6 words and a long summary of 15-20 words and any hyperlinks in the values 'short' and 'long' and 'links' in the JSON. The return should only be values those three values, in one return object. If there are no hyperlinks, then 'links' should still be a value but blank. The summaries should focus on how all of the news can affect the specified ticker coin's price in that time area. Include no extra words, no extra characters, and no introductions; make sure it's valid JSON.")
     response = model.generate_content(articles)
     return {"message": response.text}
