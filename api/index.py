@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import users, gemini
+from .routers import gemini
 from .core.config import settings
 from pydantic import BaseModel
 
@@ -21,7 +21,6 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(users.router, prefix="/api/py/users", tags=["users"])
 app.include_router(gemini.router, prefix="/api/py/gemini", tags=["gemini"])
 
 
