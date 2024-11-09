@@ -1,0 +1,11 @@
+{
+    "functions": {
+      "api/**/*.js": {
+        "includeFiles": [
+          ".next/standalone/**",
+          "node_modules/next/dist/next-server.js"
+        ]
+      }
+    }
+  }
+  
