@@ -4,3 +4,4 @@ pydantic-settings
 pydantic[email]
 google.generativeai
 pytz
+telethon

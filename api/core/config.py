@@ -1,9 +1,8 @@
 # api/core/config.py
 from pydantic_settings import BaseSettings
 from typing import List
-import os
 from dotenv import load_dotenv
-
+import os
 load_dotenv()
 
 class Settings(BaseSettings):
@@ -17,15 +16,18 @@ class Settings(BaseSettings):
     ]
     
     # Oxylabs credentials
-    OXYLABS_USERNAME: str = os.getenv("OXYLABS_USERNAME", "")
-    OXYLABS_PASSWORD: str = os.getenv("OXYLABS_PASSWORD", "")
+    OXYLABS_USERNAME: str = ""
+    OXYLABS_PASSWORD: str = ""
     
+    # Telegram API credentials
+    TELEGRAM_API_ID: int
+    TELEGRAM_API_HASH: str
+    
+    # Telegram session management
+    SESSION_DIR: str = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sessions")
+    SESSION_NAME: str = "telegram_session"    
+
     class Config:
         env_file = ".env"
-        
-    def validate_credentials(self):
-        if not self.OXYLABS_USERNAME or not self.OXYLABS_PASSWORD:
-            raise ValueError("Missing Oxylabs credentials. Please check your .env file.")
-        return True
 
 settings = Settings()
