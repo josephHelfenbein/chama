@@ -26,7 +26,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
   const ticker = searchParams.get('ticker');
 
-  const POLYGON_API_KEY = '';
+  const POLYGON_API_KEY = 'AnW66eV7obcW0q9yWRtUMnppYfxYxBYI';
 
   if (!ticker) {
     return NextResponse.json({ error: "Ticker parameter is required" }, { status: 400 });
@@ -34,7 +34,7 @@ export async function GET(request: Request): Promise<NextResponse> {
 
   // Calculate the date range for the last 90 days
   const endDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-  const startDate = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const startDate = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   const url = `https://api.polygon.io/v2/aggs/ticker/X:${ticker}/range/1/day/${startDate}/${endDate}`;
 
