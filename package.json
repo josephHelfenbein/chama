@@ -13,7 +13,6 @@
   "dependencies": {
     "@coinbase/onchainkit": "^0.35.5",
     "@types/node": "22.5.5",
-    "@types/react": "18.3.8",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.20",
     "concurrently": "^9.0.1",
@@ -23,9 +22,126 @@
     "next": "^14.2.13",
     "pino-pretty": "^12.1.0",
     "postcss": "^8.4.47",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwindcss": "3.4.12",
+    "tsup": "^8.3.5",
     "typescript": "5.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "esm/**/*",
+    "src/",
+    "src/**/*"
+  ],
+  "main": "./esm/index.js",
+  "types": "./esm/index.d.ts",
+  "module": "./esm/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    "./styles.css": "./src/styles.css",
+    "./tailwind.css": "./src/tailwind.css",
+    "./theme": "./esm/styles/theme.js",
+    ".": {
+      "types": "./esm/index.d.ts",
+      "module": "./esm/index.js",
+      "import": "./esm/index.js",
+      "default": "./esm/index.js"
+    },
+    "./api": {
+      "types": "./esm/api/index.d.ts",
+      "module": "./esm/api/index.js",
+      "import": "./esm/api/index.js",
+      "default": "./esm/api/index.js"
+    },
+    "./checkout": {
+      "types": "./esm/checkout/index.d.ts",
+      "module": "./esm/checkout/index.js",
+      "import": "./esm/checkout/index.js",
+      "default": "./esm/checkout/index.js"
+    },
+    "./core": {
+      "types": "./esm/core/index.d.ts",
+      "module": "./esm/core/index.js",
+      "import": "./esm/core/index.js",
+      "default": "./esm/core/index.js"
+    },
+    "./farcaster": {
+      "types": "./esm/farcaster/index.d.ts",
+      "module": "./esm/farcaster/index.js",
+      "import": "./esm/farcaster/index.js",
+      "default": "./esm/farcaster/index.js"
+    },
+    "./frame": {
+      "types": "./esm/frame/index.d.ts",
+      "module": "./esm/frame/index.js",
+      "import": "./esm/frame/index.js",
+      "default": "./esm/frame/index.js"
+    },
+    "./fund": {
+      "types": "./esm/fund/index.d.ts",
+      "module": "./esm/fund/index.js",
+      "import": "./esm/fund/index.js",
+      "default": "./esm/fund/index.js"
+    },
+    "./identity": {
+      "types": "./esm/identity/index.d.ts",
+      "module": "./esm/identity/index.js",
+      "import": "./esm/identity/index.js",
+      "default": "./esm/identity/index.js"
+    },
+    "./nft": {
+      "types": "./esm/nft/index.d.ts",
+      "module": "./esm/nft/index.js",
+      "import": "./esm/nft/index.js",
+      "default": "./esm/nft/index.js"
+    },
+    "./nft/view": {
+      "types": "./esm/nft/components/view/index.d.ts",
+      "module": "./esm/nft/components/view/index.js",
+      "import": "./esm/nft/components/view/index.js",
+      "default": "./esm/nft/components/view/index.js"
+    },
+    "./nft/mint": {
+      "types": "./esm/nft/components/mint/index.d.ts",
+      "module": "./esm/nft/components/mint/index.js",
+      "import": "./esm/nft/components/mint/index.js",
+      "default": "./esm/nft/components/mint/index.js"
+    },
+    "./swap": {
+      "types": "./esm/swap/index.d.ts",
+      "module": "./esm/swap/index.js",
+      "import": "./esm/swap/index.js",
+      "default": "./esm/swap/index.js"
+    },
+    "./token": {
+      "types": "./esm/token/index.d.ts",
+      "module": "./esm/token/index.js",
+      "import": "./esm/token/index.js",
+      "default": "./esm/token/index.js"
+    },
+    "./transaction": {
+      "types": "./esm/transaction/index.d.ts",
+      "module": "./esm/transaction/index.js",
+      "import": "./esm/transaction/index.js",
+      "default": "./esm/transaction/index.js"
+    },
+    "./xmtp": {
+      "types": "./esm/xmtp/index.d.ts",
+      "module": "./esm/xmtp/index.js",
+      "import": "./esm/xmtp/index.js",
+      "default": "./esm/xmtp/index.js"
+    },
+    "./wallet": {
+      "types": "./esm/wallet/index.d.ts",
+      "module": "./esm/wallet/index.js",
+      "import": "./esm/wallet/index.js",
+      "default": "./esm/wallet/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12"
   }
 }
