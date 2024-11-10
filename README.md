@@ -96,6 +96,7 @@ Through the OnChainKit, Chama allows users to buy cryptocurrencies directly with
 * [![Next.js][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * [![Tailwind][Tailwind]][Tailwind-url]
+* [![FastAPI][FastAPI]][FastAPI-url]
 * [![Onchainkit][Onchainkit]][Onchainkit-url]
 * [![Llamaindex][Llamaindex]][Llamaindex-url]
 * [![Lancedb][Lancedb]][Lancedb-url]
@@ -103,6 +104,7 @@ Through the OnChainKit, Chama allows users to buy cryptocurrencies directly with
 
 Programmed in
 * [![TypeScript][TypeScript]][TypeScript-url]
+* [![Python][Python]][Python-url]
   
 Powered by
 * [![Vercel][Vercel]][Vercel-url]
@@ -234,3 +236,5 @@ Dorahacks link: https://dorahacks.io/buidl/19463/
 [Tailwind-url]: https://tailwindcss.com/
 [Polygon]:  https://img.shields.io/badge/polygon.io-5F5CFF.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB3aWR0aD0iNjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCA2MDAgMjAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogPGcgaWQ9ImxvY2t1cC1ob3Jpei1kYXJrIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KIDxyZWN0IGlkPSJib3giIGZpbGw9IiM1RjVDRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj4KPC9yZWN0Pgo8cGF0aCBkPSJNMTAwLjQ2MjU0NCwzNiBMMTM3LjE0Mjg1Nyw3My4yOTk4MTUgTDEzMC41ODIzNjgsODEuNzUxMDcyNiBMMTAwLjI4MTY3NCwxNjQgTDgyLjIyOTU4NjcsMTA2LjU4MTk3NyBMNjQsNzIuODQ4NzUzOCBMMTAwLjQ2MjU0NCwzNiBaIE0xMjIuMTQxLDkxLjAyOSBMMTAyLjA4NDI4LDExNi44NTU4MzcgTDEwMi4wODQsMTQ1LjQ3MyBMMTIyLjE0MSw5MS4wMjkgWiBNMTAyLjQ1Myw0NC43OTEgTDg3LjAwMSwxMDYuMDU0IEw5Ny41MjMsMTM5LjUyIEw5Ny41MjM4MDk1LDExNS4xMjU2OTcgTDEzMC4yMTksNzMuMDI2IEwxMDIuNDUzLDQ0Ljc5MSBaIE05Ny4xMzEsNDYuMTEyIEw2OS44Mjk1ODQ1LDczLjcwMzg5MTYgTDgzLjY5OSw5OS4zNjggTDk3LjEzMSw0Ni4xMTIgWiIgaWQ9InBvbHlMb2dvIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICA8L3BhdGg+CiAgPC9nPgo8L3N2Zz4=&style=for-the-badge
 [Polygon-url]: https://polygon.io/
+[FastAPI]: https://img.shields.io/badge/fastapi-009688?logo=fastapi&style=for-the-badge&logoColor=white
+[FastAPI-url]: https://fastapi.tiangolo.com/
