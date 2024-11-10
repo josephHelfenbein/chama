@@ -12,6 +12,7 @@ import Link from "next/link";
 import TestArea from "./components/Test";
 import StockChart from "./components/Chart";
 import SearchBar from "./components/SearchBar";
+import QuickSelectCrypto from "./components/QuickSelectCrypto";
 import ChatBox from "./components/ChatBox";
 
 
@@ -48,7 +49,9 @@ export default function Home() {
       {/* chart section */}
       <section className="w-full flex justify-center pt-10">
         <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
-          <h1 className="md:text-3xl text-lg font-bold font-sans text-center mt-2">{ticker}</h1>
+          <section className="w-full flex justify-center pt-6">
+              <QuickSelectCrypto onSelect={setTicker} currentTicker={ticker} />
+          </section>
           <div className="w-[90%] h-[90%]">
             <StockChart ticker={ticker} />
           </div>
