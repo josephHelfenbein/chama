@@ -77,7 +77,8 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
           ? `${m.time.year}-${String(m.time.month).padStart(2, '0')}-${String(m.time.day).padStart(2, '0')}`
           : m.time.toString();
         const paramTime = param.time?.toString();
-        return markerTime === paramTime;
+        const markerTimeStr = markerTime!.toString();
+        return Math.abs(parseInt(markerTimeStr.substring(markerTimeStr.length-2, markerTimeStr.length)) - parseInt(paramTime!.substring(paramTime!.length-2, paramTime!.length))) < 3 && markerTimeStr.substring(markerTimeStr.length-5, markerTimeStr.length-3) === paramTime!.substring(paramTime!.length-5, paramTime!.length-3);
       });
 
       if (marker) {

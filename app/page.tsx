@@ -48,15 +48,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Chart section */}
-        <section className="w-full flex justify-center pt-10">
-          <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
-            <h1 className="md:text-3xl text-lg font-bold font-sans text-center mt-2">{ticker}</h1>
-            <div className="w-[90%] h-[90%]">
-              <StockChart ticker={ticker} />
-            </div>
-          </div>
-        </section>
       {/* chart section */}
       <section className="w-full flex justify-center pt-10">
         <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
@@ -69,10 +60,6 @@ export default function Home() {
         </div>
       </section>
 
-        {/* Test area section */}
-        <section className="h-screen flex justify-center">
-          <TestArea />
-        </section>
       </section>
 
       {/* Right Sidebar - Fixed ChatBox for large screens */}
