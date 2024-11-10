@@ -3,4 +3,3 @@ uvicorn[standard]==0.30.6
 pydantic-settings
 pydantic[email]
 pytz
-telethon
