@@ -1,21 +1,16 @@
 {
     "name": "nextjs-fastapi",
     "version": 2,
-    "builds": [
-      {
-        "src": "next.config.js",
-        "use": "@vercel/next"
-      },
-      {
-        "src": "api/**/*.py",
-        "use": "@vercel/python"
-      }
-    ],
     "routes": [
       {
         "src": "/api/(.*)",
         "dest": "/api/$1"
       }
-    ]
+    ],
+    "functions": {
+        "api/**": {
+            "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
+        }
+    }
   }
   
