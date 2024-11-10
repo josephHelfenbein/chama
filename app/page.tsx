@@ -9,6 +9,7 @@ import StockChart from "./components/Chart";
 import SearchBar from "./components/SearchBar";
 import TestArea from "./components/Test";
 import QuickSelectCrypto from "./components/QuickSelectCrypto";
+import { FundButton } from "@coinbase/onchainkit/fund";
 
 
 
@@ -50,12 +51,15 @@ export default function Home() {
 
       {/* chart section */}
       <section className="w-full flex justify-center pt-10">
-        <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
+        <div className="w-[95%] md:w-[90%] bg-white rounded-lg shadow-lg flex flex-col items-center">
           <section className="w-full flex justify-center pt-6">
               <QuickSelectCrypto onSelect={setTicker} currentTicker={ticker} />
           </section>
-          <div className="w-[90%] h-[90%]">
+          <div className="w-[90%] h-[90%] p-5">
             <StockChart ticker={ticker} />
+          </div>
+          <div className="flex justify-end w-full p-5">
+          <FundButton />
           </div>
         </div>
       </section>

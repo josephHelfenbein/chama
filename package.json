@@ -154,6 +154,7 @@
     }
   },
   "devDependencies": {
-    "@types/react": "^18.3.12"
+    "@types/react": "^18.3.12",
+    "json-loader": "^0.5.7"
   }
 }

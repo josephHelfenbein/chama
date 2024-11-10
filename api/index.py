@@ -41,16 +41,11 @@ app = FastAPI(
 # CORS middleware configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Include routers
-app.include_router(gemini.router, prefix="/api/py/gemini", tags=["gemini"])
-app.include_router(news.router, prefix="/api/py/news", tags=["news"])
-app.include_router(telegram.router, prefix="/api/py/telegram", tags=["telegram"])
 
 @app.get("/api/py/health")
 async def health_check():

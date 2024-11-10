@@ -14,17 +14,32 @@ const ChatBox: React.FC<ChatBoxProps> = ({ isChatOpen = true, toggleChat }) => {
   const [userInput, setUserInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
-    const newMessages = [
-      ...messages,
-      { role: "user", content: userInput },
-      { role: "assistant", content: "I'm here to help! What would you like to know?" }, // Placeholder response
-    ];
-
+    // Add the user message to the chat
+    const newMessages = [...messages, { role: "user", content: userInput }];
     setMessages(newMessages);
     setUserInput("");
+
+    try {
+      // Send the user message to the REST API
+      const response = await fetch("https://your-api-url.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput }),
+      });
+      const data = await response.json();
+
+      // Add the assistant's response to the chat
+      setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: data.response }]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: "assistant", content: "Sorry, something went wrong. Please try again later." },
+      ]);
+    }
   };
 
   useEffect(() => {

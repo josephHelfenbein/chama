@@ -1,4 +1,6 @@
+'use client'
 import React, { useEffect, useRef, useState } from "react";
+import dataMarkers from '../../public/dataMarkers.json';
 import {
   createChart,
   CrosshairMode,
@@ -17,7 +19,13 @@ interface CandlestickData {
   close: number;
   volume: number;
 }
-
+interface MarkerData {
+  time: Time,
+  position: SeriesMarkerPosition,
+  color: string,
+  shape: SeriesMarkerShape,
+  text: string,
+}
 interface ChartProps {
   ticker?: string;
 }
@@ -28,7 +36,10 @@ interface PopupState {
   x: number;
   y: number;
 }
-
+const shortLong = new Map();
+for(let i=11; i<dataMarkers.length; i++){
+  shortLong.set(dataMarkers[i].short, dataMarkers[i].long);
+}
 const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -118,7 +129,6 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
       chartRef.current?.remove();
     };
   }, []);
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -134,31 +144,33 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
             close: item.close,
           }))
         );
-
-        const markers = [
-          {
-            time: { year: 2024, month: 8, day: 23 },
+        let markers:MarkerData[] = [];
+        let year = 2023;
+        let month = 12;
+        let day = 1;
+        
+        for(let i=11; i<dataMarkers.length; i++){
+          markers.push({
+            time: {year:year, month:month, day:day},
             position: 'aboveBar' as SeriesMarkerPosition,
-            color: '#f68410',
+            color: '#00000000',
             shape: 'circle' as SeriesMarkerShape,
-            text: 'This is a very very big headline.',
-          },
-          {
-            time: { year: 2024, month: 9, day: 23 },
+            text: dataMarkers[i].short
+          });
+          markers.push({
+            time: {year:year, month:month, day:day},
             position: 'aboveBar' as SeriesMarkerPosition,
-            color: '#f68410',
+            color: '#ff4433',
             shape: 'circle' as SeriesMarkerShape,
-            text: 'This is a pretty small\nheadline.',
-          },
-          {
-            time: { year: 2024, month: 10, day: 23 },
-            position: 'aboveBar' as SeriesMarkerPosition,
-            color: '#f68410',
-            shape: 'circle' as SeriesMarkerShape,
-            text: 'This is a headline.',
+            text: ''
+          });
+          month++;
+          if(month==13){
+            year++;
+            month=1;
           }
-        ];
-
+        }
+      
         // Store markers for reference in crosshair handler
         markersRef.current = markers.map(m => ({
           time: m.time,
@@ -175,7 +187,7 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
     }
 
     fetchData();
-  }, [ticker]);
+  }, [ticker, dataMarkers]);
 
   return (
     <div className="relative w-full lg:w-full md:w-11/12 h-full min-h-[400px] max-h-[600px]">
@@ -185,11 +197,12 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
           className="absolute p-4 bg-white shadow-lg rounded-lg z-50 max-w-xs border border-gray-200"
           style={{
             left: `${popup.x}px`,
-            top: `${popup.y - 60}px`, // Offset above the cursor
+            top: `${popup.y + 10}px`, // Offset above the cursor
             transform: 'translateX(-50%)', // Center horizontally
           }}
         >
-          <p className="text-sm">{popup.text}</p>
+          <p className="text-sm font-bold">{popup.text}</p>
+          <p className="text-sm">{shortLong.get(popup.text)}</p>
         </div>
       )}
     </div>
