@@ -9,7 +9,6 @@ import StockChart from "./components/Chart";
 import SearchBar from "./components/SearchBar";
 import TestArea from "./components/Test";
 import QuickSelectCrypto from "./components/QuickSelectCrypto";
-import ChatBox from "./components/ChatBox";
 
 
 
