@@ -4,6 +4,8 @@ import {
   CrosshairMode,
   IChartApi,
   ISeriesApi,
+  SeriesMarkerPosition,
+  SeriesMarkerShape,
   Time,
 } from "lightweight-charts";
 
@@ -74,7 +76,7 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
         const markerTime = typeof m.time === 'object'
           ? `${m.time.year}-${String(m.time.month).padStart(2, '0')}-${String(m.time.day).padStart(2, '0')}`
           : m.time.toString();
-        const paramTime = param.time.toString();
+        const paramTime = param.time?.toString();
         return markerTime === paramTime;
       });
 
@@ -135,23 +137,23 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
         const markers = [
           {
             time: { year: 2024, month: 8, day: 23 },
-            position: 'aboveBar',
+            position: 'aboveBar' as SeriesMarkerPosition,
             color: '#f68410',
-            shape: 'circle',
+            shape: 'circle' as SeriesMarkerShape,
             text: 'This is a very very big headline.',
           },
           {
             time: { year: 2024, month: 9, day: 23 },
-            position: 'aboveBar',
+            position: 'aboveBar' as SeriesMarkerPosition,
             color: '#f68410',
-            shape: 'circle',
+            shape: 'circle' as SeriesMarkerShape,
             text: 'This is a pretty small\nheadline.',
           },
           {
             time: { year: 2024, month: 10, day: 23 },
-            position: 'aboveBar',
+            position: 'aboveBar' as SeriesMarkerPosition,
             color: '#f68410',
-            shape: 'circle',
+            shape: 'circle' as SeriesMarkerShape,
             text: 'This is a headline.',
           }
         ];
