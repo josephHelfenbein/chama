@@ -1,7 +1,4 @@
-// components/Chart.tsx
-"use client";
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   createChart,
   CrosshairMode,
@@ -20,7 +17,14 @@ interface CandlestickData {
 }
 
 interface ChartProps {
-  ticker?: string;  
+  ticker?: string;
+}
+
+interface PopupState {
+  visible: boolean;
+  text: string;
+  x: number;
+  y: number;
 }
 
 const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
@@ -28,6 +32,13 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
   const chartRef = useRef<IChartApi | null>(null);
   const mainSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
+  const markersRef = useRef<Array<{ time: Time; text: string }>>([]);
+  const [popup, setPopup] = useState<PopupState>({
+    visible: false,
+    text: "",
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
@@ -52,12 +63,31 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
       height: chartContainerRef.current.clientHeight,
     });
 
-    // Setting up main candlestick series and volume series
-    mainSeriesRef.current = chartRef.current.addCandlestickSeries({
-      upColor: "rgb(104, 193, 184)",
-      downColor: "rgb(245, 134, 132)",
-      wickUpColor: "rgb(0, 150, 136)",
-      wickDownColor: "rgb(244, 67, 54)",
+    chartRef.current.subscribeCrosshairMove(param => {
+      if (!param.point || !param.time) {
+        setPopup(prev => ({ ...prev, visible: false }));
+        return;
+      }
+
+      // Find if there's a marker at the current time
+      const marker = markersRef.current.find(m => {
+        const markerTime = typeof m.time === 'object'
+          ? `${m.time.year}-${String(m.time.month).padStart(2, '0')}-${String(m.time.day).padStart(2, '0')}`
+          : m.time.toString();
+        const paramTime = param.time.toString();
+        return markerTime === paramTime;
+      });
+
+      if (marker) {
+        setPopup({
+          visible: true,
+          text: marker.text,
+          x: param.point.x,
+          y: param.point.y,
+        });
+      } else {
+        setPopup(prev => ({ ...prev, visible: false }));
+      }
     });
 
     volumeSeriesRef.current = chartRef.current.addHistogramSeries({
@@ -66,26 +96,32 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
       priceScaleId: "",
     });
 
-    // Resize the chart on window resize
+    mainSeriesRef.current = chartRef.current.addCandlestickSeries({
+      upColor: "rgb(104, 193, 184)",
+      downColor: "rgb(245, 134, 132)",
+      wickUpColor: "rgb(0, 150, 136)",
+      wickDownColor: "rgb(244, 67, 54)",
+    });
+
     const handleResize = () =>
-      chartRef.current?.resize(chartContainerRef.current!.clientWidth, chartContainerRef.current!.clientHeight);
+      chartRef.current?.resize(
+        chartContainerRef.current!.clientWidth,
+        chartContainerRef.current!.clientHeight
+      );
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function to remove the chart
     return () => {
       window.removeEventListener("resize", handleResize);
       chartRef.current?.remove();
     };
   }, []);
 
-  // Fetch data whenever ticker changes
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(`/api/cryptoData?ticker=${ticker}`);
         const data: CandlestickData[] = await response.json();
 
-        // Map data to chart series
         mainSeriesRef.current?.setData(
           data.map((item) => ({
             time: item.time,
@@ -96,6 +132,37 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
           }))
         );
 
+        const markers = [
+          {
+            time: { year: 2024, month: 8, day: 23 },
+            position: 'aboveBar',
+            color: '#f68410',
+            shape: 'circle',
+            text: 'This is a very very big headline.',
+          },
+          {
+            time: { year: 2024, month: 9, day: 23 },
+            position: 'aboveBar',
+            color: '#f68410',
+            shape: 'circle',
+            text: 'This is a pretty small\nheadline.',
+          },
+          {
+            time: { year: 2024, month: 10, day: 23 },
+            position: 'aboveBar',
+            color: '#f68410',
+            shape: 'circle',
+            text: 'This is a headline.',
+          }
+        ];
+
+        // Store markers for reference in crosshair handler
+        markersRef.current = markers.map(m => ({
+          time: m.time,
+          text: m.text
+        }));
+
+        mainSeriesRef.current?.setMarkers(markers);
         volumeSeriesRef.current?.setData(
           data.map((item) => ({ time: item.time, value: item.volume }))
         );
@@ -104,15 +171,25 @@ const StockChart: React.FC<ChartProps> = ({ ticker = "BTCUSD" }) => {
       }
     }
 
-    // Call fetchData when ticker changes
     fetchData();
   }, [ticker]);
 
   return (
-    <div
-      className="w-full lg:w-full md:w-11/12 h-full min-h-[400px] max-h-[600px] overflow-hidden"
-      ref={chartContainerRef}
-    ></div>
+    <div className="relative w-full lg:w-full md:w-11/12 h-full min-h-[400px] max-h-[600px]">
+      <div className="w-full h-full" ref={chartContainerRef}></div>
+      {popup.visible && (
+        <div
+          className="absolute p-4 bg-white shadow-lg rounded-lg z-50 max-w-xs border border-gray-200"
+          style={{
+            left: `${popup.x}px`,
+            top: `${popup.y - 60}px`, // Offset above the cursor
+            transform: 'translateX(-50%)', // Center horizontally
+          }}
+        >
+          <p className="text-sm">{popup.text}</p>
+        </div>
+      )}
+    </div>
   );
 };
 
