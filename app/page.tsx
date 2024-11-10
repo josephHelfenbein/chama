@@ -1,26 +1,28 @@
 "use client";
 
-import { TickerProvider } from "./components/TickerContext";
-
-import dynamic from "next/dynamic";
 import { useState } from "react";
+import { FaComments, FaTimes } from "react-icons/fa"; // Import chat and close icons
 
-import Image from "next/image";
-import Link from "next/link";
-
-// importing components
-import TestArea from "./components/Test";
+//Components
+import ChatBox from "./components/ChatBox";
 import StockChart from "./components/Chart";
 import SearchBar from "./components/SearchBar";
+import TestArea from "./components/Test";
 import QuickSelectCrypto from "./components/QuickSelectCrypto";
 import ChatBox from "./components/ChatBox";
 
 
 
 export default function Home() {
-
   const [ticker, setTicker] = useState("BTCUSD"); // Default ticker
+  const [isChatOpen, setIsChatOpen] = useState(false); // Track chatbox visibility
 
+  // Handler to toggle chat visibility
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
+  // Handler for ticker search
   const handleTickerSearch = async (newTicker: string): Promise<boolean> => {
     const upperTicker = newTicker.toUpperCase();
     try {
@@ -37,15 +39,25 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex h-screen">
+      {/* Main Content Area */}
+      <section className="flex-grow h-full overflow-y-auto p-4">
+        {/* Search bar section */}
+        <section className="w-full flex justify-center pt-6">
+          <div className="w-[95%] md:w-[90%] flex flex-col items-center">
+            <SearchBar onSearch={handleTickerSearch} /> {/* Pass the handler */}
+          </div>
+        </section>
 
-      {/* Search bar */}
-      <section className="w-full flex justify-center pt-6">
-        <div className="w-[95%] md:w-[90%] flex flex-col items-center">
-        <SearchBar onSearch={handleTickerSearch} /> {/* Pass the handler */}
-        </div>
-      </section>
-
+        {/* Chart section */}
+        <section className="w-full flex justify-center pt-10">
+          <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
+            <h1 className="md:text-3xl text-lg font-bold font-sans text-center mt-2">{ticker}</h1>
+            <div className="w-[90%] h-[90%]">
+              <StockChart ticker={ticker} />
+            </div>
+          </div>
+        </section>
       {/* chart section */}
       <section className="w-full flex justify-center pt-10">
         <div className="w-[95%] md:w-[90%] md:h-[60vh] h-full bg-white rounded-lg shadow-lg flex flex-col items-center">
@@ -58,11 +70,30 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* test section */}
-      <section className="h-screen flex justify-center">
-        <TestArea/>
+        {/* Test area section */}
+        <section className="h-screen flex justify-center">
+          <TestArea />
+        </section>
       </section>
+
+      {/* Right Sidebar - Fixed ChatBox for large screens */}
+      <aside
+        className={`fixed bottom-16 top-0 h-full w-full lg:w-1/4 lg:h-[60vh] lg:right-0 lg:top-auto border-l border-gray-200 bg-white shadow-lg z-10 transition-transform duration-300 ${
+          isChatOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <ChatBox/>
+
+      </aside>
+
+      {/* Floating Chat Button */}
+      <button
+        onClick={toggleChat}
+        className="fixed bottom-4 right-4 p-3 rounded-full bg-blue-500 text-white shadow-lg"
+      >
+        {isChatOpen ? <FaTimes /> : <FaComments className="font-bold w-12"/>} {/* Toggle between icons */}
+        <span>{isChatOpen ? "" : "Ask"}</span>
+      </button>
     </main>
   );
 }
