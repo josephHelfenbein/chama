@@ -35,7 +35,7 @@
   </a><h3>Chama</h3>
 
   <p align="center">
-    Engaging minds, empowering caretakers: adaptive games for cognitive wellness.
+    Chama simplifies crypto by offering real-time insights, tailored explanations, and actionable trends—making informed decisions accessible to everyone.
     <br />
     <a href="https://www.chama.study/">Visit</a>
     ·
