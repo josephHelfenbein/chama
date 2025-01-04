@@ -89,6 +89,20 @@ Through the OnChainKit, Chama allows users to buy cryptocurrencies directly with
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Key Features Powered by Advanced Technologies
+
+Interactive Candlestick Graph: Chama’s interactive candlestick chart offers users real-time cryptocurrency values across multiple coins. For each price fluctuation, we use data from Gemini to generate relevant summaries of news or events influencing the changes. Additionally, live data from the Polygon API ensures users gain actionable insights with an up-to-date, comprehensive view of market trends.
+
+AI Chatbot for Real-Time Insights: The Chama chatbot, powered by AI, delivers real-time crypto market insights. Designed to accommodate all experience levels, it answers user queries, provides personalized explanations, and visualizes trends. By simplifying complex topics for beginners and offering advanced insights for seasoned users, our chatbot makes cryptocurrency knowledge accessible for everyone.
+
+Sentiment Analysis: Chama performs sentiment analysis on thousands of news articles and social media posts to assess the market mood. It classifies sentiment as bullish, bearish, or neutral, helping users gauge the overall tone and make well-informed investment choices based on current sentiments.
+
+News-Informed Buy/Sell Recommendations: Using aggregated sentiment and news data, Chama offers users buy or sell recommendations for cryptocurrencies. By contextualizing market shifts with news-driven insights, Chama helps users decide when to make trades based on real-time events and sentiment.
+
+Live Price Streams: Integrating live price feeds from multiple exchanges, Chama consolidates the latest prices for a seamless experience, eliminating the need for multiple apps and allowing users to monitor trends efficiently.
+
+
+
 
 
 ### Built With
